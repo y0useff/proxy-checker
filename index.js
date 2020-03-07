@@ -1,14 +1,17 @@
 const request = require('request-promise');
 const fs = require('fs');
 const { url } = require('./config.json')
+let os = require('os')
+
 fs.writeFileSync('success.txt', "")
 fs.writeFileSync('failed.txt', "")
 
-
 function readProxyFile(){
-  return (fs.readFileSync('./proxies.txt', 'utf8').toString().split('\r\n')).filter(line => line != '')
+  return (fs.readFileSync('./proxies.txt', 'utf8').toString().split(os.EOL)).filter(line => line != '')
 }
+
 const proxies = readProxyFile()
+
 
 function readProxyLine(proxy){
   const number_of_colon_occurences = proxy.replace(/[^:]/g, "").length
